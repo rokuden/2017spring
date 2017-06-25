@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>グラフ</title>
+<link rel="stylesheet" href="/static/main.css" type="text/css">
+</head>
+<body>
+
+<h1>登録</h1>
+<form action ="/post" method="post">
+    <p>家庭内タスク入力</p>
+    <table>
+        <tr>
+            <th>属性</th>
+            <td>
+                <input type="radio" name="zokusei" id="tuma" value="tuma" checked>妻</input>
+                <input type="radio" name="zokusei" id="otto" value="otto" checked>夫</input>
+                <input type="radio" name="zokusei" id="chonan" value="chonan" checked>長男</input>         
+                <input type="radio" name="zokusei" id="jinan" value="jinan" checked>次男</input>
+            </td>
+        </tr>
+        <tr>
+            <th>タイトル</th>
+            <td>
+                <input type="text" size="30" name="title">
+            </td>
+        </tr>
+        <tr>
+            <th>時間</th>
+            <td>
+                <select name="create_hour">
+                    <option value="now">たった今</option>
+                    <option value="1">01:00</option>
+                    <option value="2">02:00</option>
+                    <option value="3">03:00</option>
+                    <option value="4">04:00</option>
+                    <option value="5">05:00</option>
+                    <option value="6">06:00</option>
+                    <option value="7">07:00</option>
+                    <option value="8">08:00</option>
+                    <option value="9">09:00</option>
+                    <option value="10">10:00</option>
+                    <option value="11">11:00</option>
+                    <option value="12">12:00</option>
+                    <option value="13">13:00</option>
+                    <option value="14">14:00</option>
+                    <option value="15">15:00</option>
+                    <option value="16">16:00</option>
+                    <option value="17">17:00</option>
+                    <option value="18">18:00</option>
+                    <option value="19">19:00</option>
+                    <option value="20">20:00</option>
+                    <option value="21">21:00</option>
+                    <option value="22">22:00</option>
+                    <option value="23">23:00</option>
+                    <option value="24">24:00</option>
+                </select>
+            </td>
+        </tr>
+    </table> 
+    <p><button type="submit">送信</button></p>
+</form> 
+
+
+<!--<script type="text/javascript" >
+            var t = 10
+            document.write("<table border>");
+            document.write("<tr>");
+            document.write("<td>TIME</td>")
+
+            for(i = 0; i < 24; i+=1){
+                document.write("<td>", i,":00</td>");
+            }
+            document.write("<tr>");
+            document.write("<td>TASK0</td>")
+
+            for(i = 0; i < 24; i+=1){
+                if(i < t){
+                    document.write("<td bgcolor='red'>&nbsp;&nbsp;</td>");
+                }else{
+                    document.write("<td>&nbsp;&nbsp;</td>")
+                }
+            }
+            document.write("</tr>")
+            document.write("</table>")
+        </script>-->
+<!--<table border>
+            <tr bgcolor="red">
+                <td>a</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </table>-->
+<div class="entries-area">
+    <!--<table border>
+            {% for greeting in greeting_list %}
+                <tr>
+                    <td>
+                        {{ greeting.task }}
+                    </td>
+                    <td>
+                        {{ greeting.create_at|hour_fmt }}
+                    </td>
+                </tr>
+            {% endfor %}
+            </table>
+
+            <table border>
+            {% for greeting in greeting_list %}
+                <tr>
+                    <td>
+                        {{ greeting.name }}
+                    </td>
+                    <td>
+                        {{ greeting.create_at|hour_fmt }}
+                    </td>
+                </tr>
+            {% endfor %}
+            </table>
+
+            <table border>
+            {% for greeting in greeting_list %}
+                <tr>
+                    <td>
+                        {{ greeting.name }}
+                    </td>
+                        {% if greeting.create_at|hour_fmt == 14 %}
+                    <td>
+                    nikoniko
+                    </td>
+                        {% else %}
+                    <td>
+                    nukonuko
+                    </td>
+                        {% endif %}
+                </tr>
+            {% endfor %}
+            </table>-->
+    <h2>USER VIEW</h2>
+    <table border>
+        <td>属性\TIME</td>
+        {% for n in range(24) %}
+        <td>{{n+1}}:00</td>
+        {% endfor %}
+
+        {% for greeting in greeting_list %}
+        <tr>
+            <td>
+                {% if greeting.zokusei == "tuma" %}
+                <span style="background-color:#ff00ff;">妻</span>
+                {% elif greeting.zokusei == "otto" %}
+                <span style="background-color:#00ffff">夫</span>
+                {% elif greeting.zokusei == "chonan" %}
+                <span style="background-color:#00ff7f">長男</span>
+                {% elif greeting.zokusei == "jinan" %}
+                <span style="background-color:#d2691e">次男</span>
+                {% else %}
+                    {{ greeting.zokusei }}
+                {% endif %}
+            </td>
+            {% for n in range(greeting.create_hour - 1) %}
+            <td>
+                &nbsp;    
+            </td>
+            {% endfor %}
+            <td bgcolor="magenta">
+                {{ greeting.title }}
+            </td>
+            {% for i in range(24 - greeting.create_hour)%}
+            <td>
+                &nbsp;
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    <hr>
+    <h2>TASK VIEW</h2>
+    <table border>
+        <td>タイトル\TIME</td>
+        {% for n in range(24) %}
+        <td>{{n+1}}:00</td>
+        {% endfor %}
+        {% for greeting in greeting_list %}
+        <tr>
+            <td>
+                {{ greeting.title }}
+            </td>
+            {% for n in range(greeting.create_hour) %}
+            <td>
+                &nbsp;    
+            </td>
+            {% endfor %}
+            <td>
+                {% if greeting.zokusei == "tuma" %}
+                <span style="background-color:#ff00ff;">妻</span>
+                {% elif greeting.zokusei == "otto" %}
+                <span style="background-color:#00ffff">夫</span>
+                {% elif greeting.zokusei == "chonan" %}
+                <span style="background-color:#00ff7f">長男</span>
+                {% elif greeting.zokusei == "jinan" %}
+                <span style="background-color:#d2691e">次男</span>
+                {% else %}
+                    {{ greeting.zokusei }}
+                {% endif %}
+            </td>
+            {% for i in range(24 - greeting.create_hour)%}
+            <td>
+                &nbsp;
+            </td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    <!--<h2>ヒストリ</h2>
+            {% for greeting in greeting_list %}
+            <h3><hr>{{ greeting.name }}さん<br>日時:{{ greeting.create_at|datetime_fmt }}<br>状態:{{ greeting.status }}</h3>
+            <p>
+            ToDo:{{ greeting.task|n12br }}
+            </p>
+            {% endfor %}-->
+</div>
+<footer>
+    <hr>
+    Copyright(C) 2017 Tsunehisa Sudo (rokuden) All Rights Reserved.
+</footer>
+</body>
+</html>
+
