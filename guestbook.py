@@ -11,10 +11,10 @@ from flask import Flask, request, render_template, redirect, escape, Markup
 application = Flask(__name__)
 
 DATA_FILE = 'guestbook.dat'
-SERIAL_NUMBER = 0
+number = 1
 today = datetime.now().strftime("%Y%m%d") #今日の日付を取得
 
-def save_data(zokusei, title, create_at, create_hour): ##送信されたデータをリストに追加する
+def save_data(zokusei, title, shurui, create_at, create_hour): ##送信されたデータをリストに追加する
     y = datetime.now() + timedelta(days=-1)
     yesterday = y.strftime("%Y%m%d") #昨日の日付を取得
     path = "guestbook"+ yesterday + ".dat"
@@ -22,7 +22,7 @@ def save_data(zokusei, title, create_at, create_hour): ##送信されたデー�
     print aruka
     print path
 
-    database = shelve.open(DATA_FILE)
+    database = shelve.open(DATA_FILE) #本日のデータファイルを読み込む
     if aruka == False:
         shutil.copy2("guestbook.dat",path) #データファイルを日付をつけてコピー
         database.clear() #もとのデータファイルをクリア
@@ -34,9 +34,15 @@ def save_data(zokusei, title, create_at, create_hour): ##送信されたデー�
     else:
         greeting_list = database['greeting_list']
 
+    x = 1
+    for greeting in greeting_list:
+        x += 1
+        print x
+
     greeting_list.insert(0, {
         'zokusei': zokusei,
         'title': title,
+        'shurui': shurui,
         'create_at': create_at,
         'create_hour': create_hour
     })
@@ -46,6 +52,27 @@ def save_data(zokusei, title, create_at, create_hour): ##送信されたデー�
 def load_data(): ##データファイルを読み込んでリストを返す
     database = shelve.open(DATA_FILE)
     greeting_list = database.get('greeting_list', [])
+    print DATA_FILE
+    database.close()
+    return greeting_list
+
+def load_yesterday_data(): ##昨日のデータファイルを読み込んでリストを返す
+    y = datetime.now() + timedelta(days=-1)
+    yesterday = y.strftime("%Y%m%d") #昨日の日付を取得
+    YESTERDAY_DATA_FILE = "guestbook" + yesterday + ".dat"
+    database = shelve.open(YESTERDAY_DATA_FILE)
+    print YESTERDAY_DATA_FILE
+    greeting_list = database.get('greeting_list', [])
+    database.close()
+    return greeting_list
+
+def load_ototoi_data(): ##一昨日のデータファイルを読み込んでリストを返す
+    o = datetime.now() + timedelta(days=-2)
+    ototoi = o.strftime("%Y%m%d")
+    OTOTOI_DATA_FILE = "guestbook" + ototoi + ".dat"
+    database = shelve.open(OTOTOI_DATA_FILE)
+    print OTOTOI_DATA_FILE
+    greeting_list = database.get('greeting_list', [])
     database.close()
     return greeting_list
 
@@ -54,15 +81,38 @@ def load_data(): ##データファイルを読み込んでリストを返す
 def before_request():
     pass
 
-@application.route('/') ##リストを読んでレンダリングする
+@application.route('/today') ##リストを読んでレンダリングする
 def index():
     greeting_list = load_data()
+    return render_template('index.html', greeting_list=greeting_list)
+
+@application.route('/yesterday') ##昨日のリストを読んでレンダリングする
+def yesterday_index():
+    greeting_list = load_yesterday_data()
+    return render_template('index.html', greeting_list=greeting_list)
+
+@application.route('/ototoi') ##一昨日のリストを読んでレンダリングする
+def ototoi_index():
+    greeting_list = load_ototoi_data()
+    return render_template('index.html', greeting_list=greeting_list)
+
+@application.route('/past/<how_past>') ##過去のデータファイルからリストを読んでレンダリングする
+def past_index(how_past):
+    how_past = int(how_past)
+    p = datetime.now() - timedelta(days=how_past )
+    past = p.strftime("%Y%m%d")
+    PAST_DATA_FILE = "guestbook" + past + ".dat"
+    database = shelve.open(PAST_DATA_FILE)
+    print PAST_DATA_FILE
+    greeting_list = database.get('greeting_list', [])
+    database.close()
     return render_template('index.html', greeting_list=greeting_list)
 
 @application.route('/post', methods=['POST']) ##index.htmlから入力したデータをpostして送信する
 def post():
     zokusei = request.form.get('zokusei') #フォームから属性を取得
     title = request.form.get('title') #フォームからタイトルを取得
+    shurui = request.form.get('shurui') #フォームから種類を取得
     create_at = datetime.now() #フォームに入力された日時を取得
     create_hour = request.form.get('create_hour') #フォームに入力された時間を取得
 
@@ -72,12 +122,12 @@ def post():
         create_hour = now_hour #取得した時間を代入
     else:
         pass
-    
+
     create_hour = int(create_hour) #create_hourをstr型からint型に変換
 
-    save_data(zokusei, title, create_at, create_hour)
+    save_data(zokusei, title, shurui, create_at, create_hour)
 
-    return redirect('/')
+    return redirect('/today')
 
 @application.template_filter('n12br') ##改行文字をbrにする
 def n12br_filter(s):
