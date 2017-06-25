@@ -6,6 +6,12 @@
 <link rel="stylesheet" href="/static/main.css" type="text/css">
 </head>
 <body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/0.0.11/push.min.js">
+
+
+</script>
+
+
 
 <h1>登録</h1>
 <form action ="/post" method="post">
@@ -15,15 +21,24 @@
             <th>属性</th>
             <td>
                 <input type="radio" name="zokusei" id="tuma" value="tuma" checked>妻</input>
-                <input type="radio" name="zokusei" id="otto" value="otto" checked>夫</input>
-                <input type="radio" name="zokusei" id="chonan" value="chonan" checked>長男</input>         
-                <input type="radio" name="zokusei" id="jinan" value="jinan" checked>次男</input>
+                <input type="radio" name="zokusei" id="otto" value="otto">夫</input>
+                <input type="radio" name="zokusei" id="chonan" value="chonan">長男</input>         
+                <input type="radio" name="zokusei" id="jinan" value="jinan">次男</input>
             </td>
         </tr>
         <tr>
-            <th>タイトル</th>
+            <th>行動のタイトル</th>
             <td>
                 <input type="text" size="30" name="title">
+            </td>
+        </tr>
+        <tr>
+            <th>行動の種類</th>
+            <td>
+                <input type="radio" name="shurui" id="jibun" value="jibun" checked>自分のためのこと</input>
+                <input type="radio" name="shurui" id="dareka" value="dareka">家族の誰かのためのこと</input>
+                <input type="radio" name="shurui" id="zennin" value="zennin">家族全員のためのこと</input>
+                <input type="radio" name="shurui" id="shakai" value="shakai">社会のためのこと</input>
             </td>
         </tr>
         <tr>
@@ -60,113 +75,62 @@
         </tr>
     </table> 
     <p><button type="submit">送信</button></p>
-</form> 
+    <button type="button" onclick="location.href='http://ccx20.sfc.keio.ac.jp:9990/today'">今日のグラフを見る</button>
+    <button type="button" onclick="location.href='http://ccx20.sfc.keio.ac.jp:9990/yesterday'">昨日のグラフを見る</button>
+    <button type="button" onclick="location.href='http://ccx20.sfc.keio.ac.jp:9990/ototoi'">一昨日のグラフを見る</button>
+    <button type="button" onclick="location.href='http://ccx20.sfc.keio.ac.jp:9990/past/3'">一昨昨日のグラフを見る</button>
+    <button type="button" onclick="location.href='http://ccx20.sfc.keio.ac.jp:9990/past/4'">４日前のグラフを見る</button>
+</form>
 
-
-<!--<script type="text/javascript" >
-            var t = 10
-            document.write("<table border>");
-            document.write("<tr>");
-            document.write("<td>TIME</td>")
-
-            for(i = 0; i < 24; i+=1){
-                document.write("<td>", i,":00</td>");
-            }
-            document.write("<tr>");
-            document.write("<td>TASK0</td>")
-
-            for(i = 0; i < 24; i+=1){
-                if(i < t){
-                    document.write("<td bgcolor='red'>&nbsp;&nbsp;</td>");
-                }else{
-                    document.write("<td>&nbsp;&nbsp;</td>")
-                }
-            }
-            document.write("</tr>")
-            document.write("</table>")
-        </script>-->
-<!--<table border>
-            <tr bgcolor="red">
-                <td>a</td>
-                <td></td>
-                <td></td>
-            </tr>
-        </table>-->
 <div class="entries-area">
-    <!--<table border>
-            {% for greeting in greeting_list %}
-                <tr>
-                    <td>
-                        {{ greeting.task }}
-                    </td>
-                    <td>
-                        {{ greeting.create_at|hour_fmt }}
-                    </td>
-                </tr>
-            {% endfor %}
-            </table>
-
-            <table border>
-            {% for greeting in greeting_list %}
-                <tr>
-                    <td>
-                        {{ greeting.name }}
-                    </td>
-                    <td>
-                        {{ greeting.create_at|hour_fmt }}
-                    </td>
-                </tr>
-            {% endfor %}
-            </table>
-
-            <table border>
-            {% for greeting in greeting_list %}
-                <tr>
-                    <td>
-                        {{ greeting.name }}
-                    </td>
-                        {% if greeting.create_at|hour_fmt == 14 %}
-                    <td>
-                    nikoniko
-                    </td>
-                        {% else %}
-                    <td>
-                    nukonuko
-                    </td>
-                        {% endif %}
-                </tr>
-            {% endfor %}
-            </table>-->
     <h2>USER VIEW</h2>
+    <h3>種類の凡例</h3><p><span style="background-color:#e9dfe5;">自分のためのこと</span><span style="background-color:#deb068;">家族の誰かのためのこと</span><span style="background-color:#cc7eb1;">家族全員のためのこと</span><span style="background-color:#915c8b;">社会のためのこと</span></p>
     <table border>
         <td>属性\TIME</td>
-        {% for n in range(24) %}
+        {% for n in range(24) %}<!--時刻を生成 -->
         <td>{{n+1}}:00</td>
         {% endfor %}
 
         {% for greeting in greeting_list %}
         <tr>
-            <td>
-                {% if greeting.zokusei == "tuma" %}
-                <span style="background-color:#ff00ff;">妻</span>
-                {% elif greeting.zokusei == "otto" %}
-                <span style="background-color:#00ffff">夫</span>
-                {% elif greeting.zokusei == "chonan" %}
-                <span style="background-color:#00ff7f">長男</span>
-                {% elif greeting.zokusei == "jinan" %}
-                <span style="background-color:#d2691e">次男</span>
-                {% else %}
-                    {{ greeting.zokusei }}
-                {% endif %}
+            {% if greeting.zokusei == "tuma" %}
+            <td bgcolor="#ffd700">妻
+            {% elif greeting.zokusei == "otto" %}
+            <td bgcolor="#87ceeb">夫
+            {% elif greeting.zokusei == "chonan" %}
+            <td bgcolor="#adff2f">長男
+            {% elif greeting.zokusei == "jinan" %}
+            <td bgcolor="#7fffd4">次男
+            {% else %}
+            <td>{{ greeting.zokusei }}
+            {% endif %}
             </td>
-            {% for n in range(greeting.create_hour - 1) %}
+            {% for n in range(greeting.create_hour - 1) %}<!--タスクの時間までの空白 -->
             <td>
                 &nbsp;    
             </td>
             {% endfor %}
-            <td bgcolor="magenta">
+            {% if greeting.shurui == "jibun" %}
+            <td bgcolor="#e9dfe5">
                 {{ greeting.title }}
             </td>
+            {% elif greeting.shurui == "dareka" %}
+            <td bgcolor="#deb068">
+                {{ greeting.title }}
+            </td>
+            {% elif greeting.shurui == "zennin" %}
+            <td bgcolor="#cc7eb1">
+                {{ greeting.title }}
+            </td>
+            {% elif greeting.shurui == "shakai" %}
+            <td bgcolor="#38b48b">
+                {{ greeting.title }}
+            </td>
+            {% else %}
+            <td bgcolor="#915c8b">
+                {{ greeting.title }}
+            </td>
+            {% endif %}
             {% for i in range(24 - greeting.create_hour)%}
             <td>
                 &nbsp;
@@ -177,6 +141,7 @@
     </table>
     <hr>
     <h2>TASK VIEW</h2>
+    <h3>種類の凡例</h3><p><span style="background-color:#e9dfe5;">自分のためのこと</span><span style="background-color:#deb068;">家族の誰かのためのこと</span><span style="background-color:#cc7eb1;">家族全員のためのこと</span><span style="background-color:#915c8b;">社会のためのこと</span></p>
     <table border>
         <td>タイトル\TIME</td>
         {% for n in range(24) %}
@@ -184,26 +149,43 @@
         {% endfor %}
         {% for greeting in greeting_list %}
         <tr>
-            <td>
+            {% if greeting.shurui == "jibun" %}
+            <td bgcolor="#e9dfe5">
                 {{ greeting.title }}
             </td>
-            {% for n in range(greeting.create_hour) %}
+            {% elif greeting.shurui == "dareka" %}
+            <td bgcolor="#deb068">
+                {{ greeting.title }}
+            </td>
+            {% elif greeting.shurui == "zennin" %}
+            <td bgcolor="#cc7eb1">
+                {{ greeting.title }}
+            </td>
+            {% elif greeting.shurui == "shakai" %}
+            <td bgcolor="#38b48b">
+                {{ greeting.title }}
+            </td>
+            {% else %}
+            <td bgcolor="#915c8b">
+                {{ greeting.title }}
+            </td>
+            {% endif %}
+            {% for n in range(greeting.create_hour - 1) %}
             <td>
                 &nbsp;    
             </td>
             {% endfor %}
-            <td>
-                {% if greeting.zokusei == "tuma" %}
-                <span style="background-color:#ff00ff;">妻</span>
-                {% elif greeting.zokusei == "otto" %}
-                <span style="background-color:#00ffff">夫</span>
-                {% elif greeting.zokusei == "chonan" %}
-                <span style="background-color:#00ff7f">長男</span>
-                {% elif greeting.zokusei == "jinan" %}
-                <span style="background-color:#d2691e">次男</span>
-                {% else %}
-                    {{ greeting.zokusei }}
-                {% endif %}
+            {% if greeting.zokusei == "tuma" %}
+            <td bgcolor="#ffd700">妻
+            {% elif greeting.zokusei == "otto" %}
+            <td bgcolor="#87ceeb">夫
+            {% elif greeting.zokusei == "chonan" %}
+            <td bgcolor="#adff2f">長男
+            {% elif greeting.zokusei == "jinan" %}
+            <td bgcolor="#7fffd4">次男
+            {% else %}
+            <td>{{ greeting.zokusei }}
+            {% endif %}
             </td>
             {% for i in range(24 - greeting.create_hour)%}
             <td>
@@ -213,14 +195,7 @@
         </tr>
         {% endfor %}
     </table>
-    <!--<h2>ヒストリ</h2>
-            {% for greeting in greeting_list %}
-            <h3><hr>{{ greeting.name }}さん<br>日時:{{ greeting.create_at|datetime_fmt }}<br>状態:{{ greeting.status }}</h3>
-            <p>
-            ToDo:{{ greeting.task|n12br }}
-            </p>
-            {% endfor %}-->
-</div>
+    </div>
 <footer>
     <hr>
     Copyright(C) 2017 Tsunehisa Sudo (rokuden) All Rights Reserved.
