@@ -26,6 +26,7 @@ def save_data(zokusei, title, shurui, create_at, create_hour): ##送信された
     if aruka == False:
         shutil.copy2("guestbook.dat",path) #データファイルを日付をつけてコピー
         database.clear() #もとのデータファイルをクリア
+        print "data copied and today's data was initialized"
     else:
         pass #そのままデータファイルを読み込む
 
@@ -76,7 +77,7 @@ def load_ototoi_data(): ##一昨日のデータファイルを読み込んでリ
     database.close()
     return greeting_list
 
-@application.before_request ##すべてのページにBasic認証をかける 
+@application.before_request ##すべてのページにBasic認証をかける
 @requires_auth
 def before_request():
     pass
