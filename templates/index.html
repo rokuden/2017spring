@@ -22,7 +22,7 @@
             <td>
                 <input type="radio" name="zokusei" id="tuma" value="tuma" checked>妻</input>
                 <input type="radio" name="zokusei" id="otto" value="otto">夫</input>
-                <input type="radio" name="zokusei" id="chonan" value="chonan">長男</input>         
+                <input type="radio" name="zokusei" id="chonan" value="chonan">長男</input>
                 <input type="radio" name="zokusei" id="jinan" value="jinan">次男</input>
             </td>
         </tr>
@@ -34,10 +34,16 @@
         </tr>
         <tr>
             <th>行動の種類</th>
-            <td>
+            <td bgcolor="#e9dfe5">
                 <input type="radio" name="shurui" id="jibun" value="jibun" checked>自分のためのこと</input>
+            </td>
+            <td bgcolor="#deb068">
                 <input type="radio" name="shurui" id="dareka" value="dareka">家族の誰かのためのこと</input>
+            </td>
+            <td bgcolor="#cc7eb1">
                 <input type="radio" name="shurui" id="zennin" value="zennin">家族全員のためのこと</input>
+            </td>
+            <td bgcolor="#915c8b">
                 <input type="radio" name="shurui" id="shakai" value="shakai">社会のためのこと</input>
             </td>
         </tr>
@@ -73,7 +79,7 @@
                 </select>
             </td>
         </tr>
-    </table> 
+    </table>
     <p><button type="submit">送信</button></p>
     <button type="button" onclick="location.href='http://ccx20.sfc.keio.ac.jp:9990/today'">今日のグラフを見る</button>
     <button type="button" onclick="location.href='http://ccx20.sfc.keio.ac.jp:9990/yesterday'">昨日のグラフを見る</button>
@@ -81,7 +87,7 @@
     <button type="button" onclick="location.href='http://ccx20.sfc.keio.ac.jp:9990/past/3'">一昨昨日のグラフを見る</button>
     <button type="button" onclick="location.href='http://ccx20.sfc.keio.ac.jp:9990/past/4'">４日前のグラフを見る</button>
 </form>
-
+<hr>
 <div class="entries-area">
     <h2>USER VIEW</h2>
     <h3>種類の凡例</h3><p><span style="background-color:#e9dfe5;">自分のためのこと</span><span style="background-color:#deb068;">家族の誰かのためのこと</span><span style="background-color:#cc7eb1;">家族全員のためのこと</span><span style="background-color:#915c8b;">社会のためのこと</span></p>
@@ -107,7 +113,7 @@
             </td>
             {% for n in range(greeting.create_hour - 1) %}<!--タスクの時間までの空白 -->
             <td>
-                &nbsp;    
+                &nbsp;
             </td>
             {% endfor %}
             {% if greeting.shurui == "jibun" %}
@@ -139,6 +145,7 @@
         </tr>
         {% endfor %}
     </table>
+
     <hr>
     <h2>TASK VIEW</h2>
     <h3>種類の凡例</h3><p><span style="background-color:#e9dfe5;">自分のためのこと</span><span style="background-color:#deb068;">家族の誰かのためのこと</span><span style="background-color:#cc7eb1;">家族全員のためのこと</span><span style="background-color:#915c8b;">社会のためのこと</span></p>
@@ -172,7 +179,7 @@
             {% endif %}
             {% for n in range(greeting.create_hour - 1) %}
             <td>
-                &nbsp;    
+                &nbsp;
             </td>
             {% endfor %}
             {% if greeting.zokusei == "tuma" %}
@@ -195,6 +202,7 @@
         </tr>
         {% endfor %}
     </table>
+
     </div>
 <footer>
     <hr>
@@ -202,4 +210,3 @@
 </footer>
 </body>
 </html>
-
