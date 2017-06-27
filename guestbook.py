@@ -57,44 +57,18 @@ def load_data(): ##データファイルを読み込んでリストを返す
     database.close()
     return greeting_list
 
-def load_yesterday_data(): ##昨日のデータファイルを読み込んでリストを返す
-    y = datetime.now() + timedelta(days=-1)
-    yesterday = y.strftime("%Y%m%d") #昨日の日付を取得
-    YESTERDAY_DATA_FILE = "guestbook" + yesterday + ".dat"
-    database = shelve.open(YESTERDAY_DATA_FILE)
-    print YESTERDAY_DATA_FILE
-    greeting_list = database.get('greeting_list', [])
-    database.close()
-    return greeting_list
-
-def load_ototoi_data(): ##一昨日のデータファイルを読み込んでリストを返す
-    o = datetime.now() + timedelta(days=-2)
-    ototoi = o.strftime("%Y%m%d")
-    OTOTOI_DATA_FILE = "guestbook" + ototoi + ".dat"
-    database = shelve.open(OTOTOI_DATA_FILE)
-    print OTOTOI_DATA_FILE
-    greeting_list = database.get('greeting_list', [])
-    database.close()
-    return greeting_list
-
 @application.before_request ##すべてのページにBasic認証をかける
 @requires_auth
 def before_request():
     pass
 
+@application.route('/touroku')
+def touroku():
+    return render_template('touroku.html')
+
 @application.route('/today') ##リストを読んでレンダリングする
 def index():
     greeting_list = load_data()
-    return render_template('index.html', greeting_list=greeting_list)
-
-@application.route('/yesterday') ##昨日のリストを読んでレンダリングする
-def yesterday_index():
-    greeting_list = load_yesterday_data()
-    return render_template('index.html', greeting_list=greeting_list)
-
-@application.route('/ototoi') ##一昨日のリストを読んでレンダリングする
-def ototoi_index():
-    greeting_list = load_ototoi_data()
     return render_template('index.html', greeting_list=greeting_list)
 
 @application.route('/past/<how_past>') ##過去のデータファイルからリストを読んでレンダリングする
@@ -128,7 +102,7 @@ def post():
 
     save_data(zokusei, title, shurui, create_at, create_hour)
 
-    return redirect('/today')
+    return redirect('/touroku')
 
 @application.template_filter('n12br') ##改行文字をbrにする
 def n12br_filter(s):
