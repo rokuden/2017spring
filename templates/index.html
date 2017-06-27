@@ -2,94 +2,53 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<title>グラフ</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+<title>CAMUのグラフ</title>
 <link rel="stylesheet" href="/static/main.css" type="text/css">
 </head>
 <body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/0.0.11/push.min.js">
-
-
 </script>
 
 
+<script type = "text/javascript">
+<!--
+ function Display(no){
+  
+     if(no == "no1"){
+  
+         document.getElementById("USER_VIEW").style.display = "block";
+         document.getElementById("TASK_VIEW").style.display = "none";
+  
+     }else if(no == "no2"){
+  
+         document.getElementById("USER_VIEW").style.display = "none";
+         document.getElementById("TASK_VIEW").style.display = "block";
+  
+     }
+  
+ }
+ -->
+</script>
 
-<h1>登録</h1>
-<form action ="/post" method="post">
-    <p>家庭内タスク入力</p>
-    <table>
-        <tr>
-            <th>属性</th>
-            <td>
-                <input type="radio" name="zokusei" id="tuma" value="tuma" checked>妻</input>
-                <input type="radio" name="zokusei" id="otto" value="otto">夫</input>
-                <input type="radio" name="zokusei" id="chonan" value="chonan">長男</input>
-                <input type="radio" name="zokusei" id="jinan" value="jinan">次男</input>
-            </td>
-        </tr>
-        <tr>
-            <th>行動のタイトル</th>
-            <td>
-                <input type="text" size="30" name="title">
-            </td>
-        </tr>
-        <tr>
-            <th>行動の種類</th>
-            <td bgcolor="#e9dfe5">
-                <input type="radio" name="shurui" id="jibun" value="jibun" checked>自分のためのこと</input>
-            </td>
-            <td bgcolor="#deb068">
-                <input type="radio" name="shurui" id="dareka" value="dareka">家族の誰かのためのこと</input>
-            </td>
-            <td bgcolor="#cc7eb1">
-                <input type="radio" name="shurui" id="zennin" value="zennin">家族全員のためのこと</input>
-            </td>
-            <td bgcolor="#915c8b">
-                <input type="radio" name="shurui" id="shakai" value="shakai">社会のためのこと</input>
-            </td>
-        </tr>
-        <tr>
-            <th>時間</th>
-            <td>
-                <select name="create_hour">
-                    <option value="now">たった今</option>
-                    <option value="1">01:00</option>
-                    <option value="2">02:00</option>
-                    <option value="3">03:00</option>
-                    <option value="4">04:00</option>
-                    <option value="5">05:00</option>
-                    <option value="6">06:00</option>
-                    <option value="7">07:00</option>
-                    <option value="8">08:00</option>
-                    <option value="9">09:00</option>
-                    <option value="10">10:00</option>
-                    <option value="11">11:00</option>
-                    <option value="12">12:00</option>
-                    <option value="13">13:00</option>
-                    <option value="14">14:00</option>
-                    <option value="15">15:00</option>
-                    <option value="16">16:00</option>
-                    <option value="17">17:00</option>
-                    <option value="18">18:00</option>
-                    <option value="19">19:00</option>
-                    <option value="20">20:00</option>
-                    <option value="21">21:00</option>
-                    <option value="22">22:00</option>
-                    <option value="23">23:00</option>
-                    <option value="24">24:00</option>
-                </select>
-            </td>
-        </tr>
-    </table>
-    <p><button type="submit">送信</button></p>
+<br><br><br><br>
+<form>
+    <button type="button" onclick="location.href='http://ccx20.sfc.keio.ac.jp:9990/touroku'">登録画面に行く</button>
+</form>
+<hr>
+
+<form>
     <button type="button" onclick="location.href='http://ccx20.sfc.keio.ac.jp:9990/today'">今日のグラフを見る</button>
-    <button type="button" onclick="location.href='http://ccx20.sfc.keio.ac.jp:9990/yesterday'">昨日のグラフを見る</button>
-    <button type="button" onclick="location.href='http://ccx20.sfc.keio.ac.jp:9990/ototoi'">一昨日のグラフを見る</button>
+    <button type="button" onclick="location.href='http://ccx20.sfc.keio.ac.jp:9990/past/1'">昨日のグラフを見る</button>
+    <button type="button" onclick="location.href='http://ccx20.sfc.keio.ac.jp:9990/past/2'">一昨日のグラフを見る</button>
     <button type="button" onclick="location.href='http://ccx20.sfc.keio.ac.jp:9990/past/3'">一昨昨日のグラフを見る</button>
     <button type="button" onclick="location.href='http://ccx20.sfc.keio.ac.jp:9990/past/4'">４日前のグラフを見る</button>
 </form>
 <hr>
-<div class="entries-area">
+
+<div id="USER_VIEW">
     <h2>USER VIEW</h2>
+    <h3><a href="javascript:;" onclick="Display('no2')"><button type="button">TASK_VIEWを見る</button></a></h3>
     <h3>種類の凡例</h3><p><span style="background-color:#e9dfe5;">自分のためのこと</span><span style="background-color:#deb068;">家族の誰かのためのこと</span><span style="background-color:#cc7eb1;">家族全員のためのこと</span><span style="background-color:#915c8b;">社会のためのこと</span></p>
     <table border>
         <td>属性\TIME</td>
@@ -146,8 +105,11 @@
         {% endfor %}
     </table>
 
-    <hr>
+</div>
+<div id="TASK_VIEW" style="display:none;">
     <h2>TASK VIEW</h2>
+
+    <h3><a href="javascript:;" onclick="Display('no1')"><button type="button">USER VIEWを見る</button></a></h3>
     <h3>種類の凡例</h3><p><span style="background-color:#e9dfe5;">自分のためのこと</span><span style="background-color:#deb068;">家族の誰かのためのこと</span><span style="background-color:#cc7eb1;">家族全員のためのこと</span><span style="background-color:#915c8b;">社会のためのこと</span></p>
     <table border>
         <td>タイトル\TIME</td>
@@ -203,7 +165,7 @@
         {% endfor %}
     </table>
 
-    </div>
+</div>
 <footer>
     <hr>
     Copyright(C) 2017 Tsunehisa Sudo (rokuden) All Rights Reserved.
