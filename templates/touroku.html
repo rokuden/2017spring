@@ -2,9 +2,9 @@
 <html lang="ja">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=yes">
 <title>CAMUの送信画面</title>
-<link rel="stylesheet" href="/static/main.css" type="text/css">
+<link rel="stylesheet" href="../static/touroku.css" type="text/css">
 </head>
 <body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/0.0.11/push.min.js">
@@ -12,19 +12,40 @@
 
 </script>
 
+<script type="text/javascript">
+function check(){
 
+    if(window.confirm('送信してよろしいですか？')){ // 確認ダイアログを表示
+
+        window.alert('送信されました');
+        return true; // 「OK」時は送信を実行
+
+    }
+    else{ // 「キャンセル」時の処理
+
+        window.alert('キャンセルされました'); // 警告ダイアログを表示
+        return false; // 送信を中止
+
+    }
+
+}
+</script>
+
+<img src="/static/camu_logo.png" align="right" width="150">
 <br><br><br><br>
 <h1>登録</h1>
-<form action ="/post" method="post">
+<form action ="/post" method="post" onSubmit="return check()">
     <p>家庭内タスク入力</p>
     <table>
         <tr>
             <th>属性</th>
-            <td>
-                <input type="radio" name="zokusei" id="tuma" value="tuma" checked>妻</input>
-                <input type="radio" name="zokusei" id="otto" value="otto">夫</input>
-                <input type="radio" name="zokusei" id="chonan" value="chonan">長男</input>
-                <input type="radio" name="zokusei" id="jinan" value="jinan">次男</input>
+            <td bgcolor="#c1e4e9"><input type="radio" name="zokusei" id="tuma" value="tuma" checked>夫</input>
+            </td>
+            <td bgcolor="#eebbcb"><input type="radio" name="zokusei" id="otto" value="otto">妻</input>
+            </td>
+            <td bgcolor="#dccb18"><input type="radio" name="zokusei" id="chonan" value="chonan">長男</input>
+            </td>
+            <td bgcolor="#a59aca"><input type="radio" name="zokusei" id="jinan" value="jinan">次男</input>
             </td>
         </tr>
         <tr>
@@ -35,17 +56,17 @@
         </tr>
         <tr>
             <th>行動の種類</th>
-            <td bgcolor="#e9dfe5">
-                <input type="radio" name="shurui" id="jibun" value="jibun" checked>自分のためのこと</input>
+            <td bgcolor="#c49a6a">
+                <input type="radio" name="shurui" id="jibun" value="jibun" checked>自分のためのこと</input><br>
             </td>
-            <td bgcolor="#deb068">
-                <input type="radio" name="shurui" id="dareka" value="dareka">家族の誰かのためのこと</input>
+            <td bgcolor="#79c06e">
+                <input type="radio" name="shurui" id="dareka" value="dareka">家族の誰かのためのこと</input><br>
             </td>
-            <td bgcolor="#cc7eb1">
-                <input type="radio" name="shurui" id="zennin" value="zennin">家族全員のためのこと</input>
+            <td bgcolor="#4496d3">
+                <input type="radio" name="shurui" id="zennin" value="zennin">家族全員のためのこと</input><br>
             </td>
-            <td bgcolor="#915c8b">
-                <input type="radio" name="shurui" id="shakai" value="shakai">社会のためのこと</input>
+            <td bgcolor="#afafb0">
+                <input type="radio" name="shurui" id="shakai" value="shakai">社会のためのこと</input><br>
             </td>
         </tr>
         <tr>
