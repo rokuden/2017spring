@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=yes">
 <title>CAMUのグラフ</title>
-<link rel="stylesheet" href="../static/main.css" type="text/css">
+<link rel="stylesheet" href="/static/main.css" type="text/css">
 </head>
 <body>
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/push.js/0.0.11/push.min.js">
@@ -67,7 +67,7 @@ $(document).ready(function(){
 -->
 </script>
 
-<script>
+<script type="text/javascript">
 var pc_width = 1080;
 var device = (screen.width < 600 ? 'sp' : 'pc');
 var view_mode = (device == 'pc' || document.cookie.indexOf('view_mode=pc') != -1 ? 'pc' : 'sp');
@@ -93,27 +93,28 @@ $(function () {
     }
 });
 </script>
-<img src="/static/camu_logo.png" align="right" width="150">
-<br><br>
+<a href="/today"><img src="/static/camu_logo.png" align="right" width="150"></a>
+<br><br><br><br>
 <!--<button class="sp-mode" style="display:none;">スマートフォン用で表示</button>
 <button class="pc-mode" style="display:none;">PC用で表示</button>
 <hr>-->
 <form>
-    <button type="button" onclick="location.href='http://ccx20.sfc.keio.ac.jp:9990/touroku'">登録画面に行く</button>
+    <button type="button" onclick="location.href='/touroku'">登録画面に行く</button>
 </form>
 <hr>
 
 <form>
-    <button type="button" onclick="location.href='http://ccx20.sfc.keio.ac.jp:9990/today'">今日のグラフを見る</button>
-    <button type="button" onclick="location.href='http://ccx20.sfc.keio.ac.jp:9990/past/1'">昨日のグラフを見る</button>
-    <button type="button" onclick="location.href='http://ccx20.sfc.keio.ac.jp:9990/past/2'">一昨日のグラフを見る</button>
-    <button type="button" onclick="location.href='http://ccx20.sfc.keio.ac.jp:9990/past/3'">一昨昨日のグラフを見る</button>
-    <button type="button" onclick="location.href='http://ccx20.sfc.keio.ac.jp:9990/past/4'">４日前のグラフを見る</button>
+    <button type="button" onclick="location.href='/today'">今日のグラフを見る</button>
+    <button type="button" onclick="location.href='/past/1'">昨日のグラフを見る</button>
+    <button type="button" onclick="location.href='/past/2'">一昨日のグラフを見る</button>
+    <button type="button" onclick="location.href='/past/3'">一昨昨日のグラフを見る</button>
+    <button type="button" onclick="location.href='/past/4'">４日前のグラフを見る</button>
 </form>
 <hr>
-    <button type="button" onclick="location.href='http://ccx20.sfc.keio.ac.jp:9990/all'">項目を削除する</button>
+    <button type="button" onclick="location.href='/all'">項目を削除する</button>
 
 <hr>
+<div class="scroll">
 <div id="USER_VIEW">
     <h2>USER VIEW</h2>
     <h3><a href="javascript:;" onclick="Display('no2')"><button type="button">TASK VIEWを見る</button></a></h3>

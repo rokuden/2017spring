@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
 <title>CAMUのグラフ</title>
-<link rel="stylesheet" href="../static/delete.css" type="text/css">
+<link rel="stylesheet" href="/static/delete.css" type="text/css">
 </head>
 <body>
 <script type="text/javascript">
@@ -31,20 +31,20 @@ function poron(){
 // -->
 </script>
 
-<img src="/static/camu_logo.png" align="right" width="150">
+<a href="/today"><img src="/static/camu_logo.png" align="right" width="150"></a>
 <br><br><br><br>
 <form>
-    <button type="button" onclick="location.href='http://ccx20.sfc.keio.ac.jp:9990/touroku'">登録画面に行く</button>
+    <button type="button" onclick="location.href='/touroku'">登録画面に行く</button>
 </form>
 <hr>
 
 <form>
-    <button type="button" onclick="location.href='http://ccx20.sfc.keio.ac.jp:9990/today'">今日のグラフ</button><hr>
-    <button type="button" onclick="location.href='http://ccx20.sfc.keio.ac.jp:9990/all'">今日の削除画面</button>
-    <button type="button" onclick="location.href='http://ccx20.sfc.keio.ac.jp:9990/all/past/1'">昨日の削除画面</button>
-    <button type="button" onclick="location.href='http://ccx20.sfc.keio.ac.jp:9990/all/past/2'">一昨日の削除画面</button>
-    <button type="button" onclick="location.href='http://ccx20.sfc.keio.ac.jp:9990/all/past/3'">一昨昨日の削除画面</button>
-    <button type="button" onclick="location.href='http://ccx20.sfc.keio.ac.jp:9990/all/past/4'">４日前の削除画面</button>
+    <button type="button" onclick="location.href='/today'">今日のグラフ</button><hr>
+    <button type="button" onclick="location.href='/all'">今日の削除画面</button>
+    <button type="button" onclick="location.href='/all/past/1'">昨日の削除画面</button>
+    <button type="button" onclick="location.href='/all/past/2'">一昨日の削除画面</button>
+    <button type="button" onclick="location.href='/all/past/3'">一昨昨日の削除画面</button>
+    <button type="button" onclick="location.href='/all/past/4'">４日前の削除画面</button>
 </form>
 <hr>
 <h2>削除画面</h2>
