@@ -1,12 +1,25 @@
 table {
    table-layout: fixed;     /* 固定レイアウト */
    border: 2px solid green;   /* 外枠：2px,実線,緑色 */
-   width: 1920px;              /* 表の横幅：350ピクセル */
+   width: 2400px;              /* 表の横幅：2400ピクセル */
 }
 table td {
    border: 1px solid green; /* 表内側の線：1px,実線,緑色 */
    padding: 3px;            /* セル内側の余白：3ピクセル */
 }
 body{
-background-color: #f8f4e6;
+    background-color: #f8f4e6;
+}
+.scroll{
+    overflow: auto;　　　　/*tableをスクロールさせる*/
+    white-space: nowrap;　　/*tableのセル内にある文字の折り返しを禁止*/
+}
+.scroll::-webkit-scrollbar{　　/*tableにスクロールバーを追加*/
+    height: 5px;
+}
+.scroll::-webkit-scrollbar-track{　　/*tableにスクロールバーを追加*/
+    background: #F1F1F1;
+}
+.scroll::-webkit-scrollbar-thumb {　　/*tableにスクロールバーを追加*/
+    background: #BCBCBC;
 }
