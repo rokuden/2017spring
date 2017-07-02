@@ -54,6 +54,7 @@ def save_data(zokusei, title, shurui, create_at, create_hour): ##送信された
 
 def load_data(): ##データファイルを読み込んでリストを返す
     
+    mydb = MyDatabase("task_list.shelve")
     y = datetime.now() + timedelta(days=-1)
     yesterday = y.strftime("%Y%m%d") #昨日の日付を取得
     path = "task_list"+ yesterday + ".shelve"
@@ -66,7 +67,6 @@ def load_data(): ##データファイルを読み込んでリストを返す
         print "data copied and today's data was initialized"
     
 
-    mydb = MyDatabase("task_list.shelve")
     list_keys = mydb.db.keys()
     #print list_keys
 
@@ -456,7 +456,7 @@ def del_gamen():
         elif mydb.db[str(i)]['zokusei'] == 'jinan':
             dele+= u"<td bgcolor='#a59aca'>次男</td>"
         dele+= "<td>" + mydb.db[str(i)][u'title'] + "</td>"
-        dele+= """<td><button type='button' onclick="location.href='http://ccx20.sfc.keio.ac.jp:9990/all/""" + i + """'">"""
+        dele+= """<td><button type='button' onclick="location.href='/all/""" + i + """'">"""
         dele+= u"削除する</button></form></td>"
         dele+= "</tr>"
 
@@ -481,7 +481,7 @@ def del_gamen_past(past, how_past):
         elif mydb.db[str(i)]['zokusei'] == 'jinan':
             dele+= u"<td bgcolor='#a59aca'>次男</td>"
         dele+= "<td>" + mydb.db[str(i)][u'title'] + "</td>"
-        dele+= """<td><button type='button' onclick="location.href='http://ccx20.sfc.keio.ac.jp:9990/all/""" + str(how_past) + "/"+ i + """'">"""
+        dele+= """<td><button type='button' onclick="location.href='/all/""" + str(how_past) + "/"+ i + """'">"""
         dele+= u"削除する</button></form></td>"
         dele+= "</tr>"
 
