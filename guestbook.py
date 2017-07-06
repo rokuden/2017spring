@@ -43,6 +43,18 @@ mydb = MyDatabase("task_list.shelve")
 def save_data(zokusei, title, shurui, create_at, create_hour): ##送信されたデータをリストに追加する
 
     mydb = MyDatabase("task_list.shelve")
+
+    y = datetime.now() + timedelta(days=-1)
+    yesterday = y.strftime("%Y%m%d") #昨日の日付を取得
+    path = "task_list"+ yesterday + ".shelve"
+    aruka = os.path.isfile(path) #昨日の日付のついたデータファイルの有無を確認
+    print aruka
+    print path
+    if aruka == False:
+        shutil.copy2("task_list.shelve",path) #データファイルを日付をつけてコピー
+        mydb.db.clear() #もとのデータファイルをクリア
+        print "data copied and today's data was initialized"
+
     mydb.create({
         'zokusei': zokusei,
         'title': title,
@@ -53,7 +65,7 @@ def save_data(zokusei, title, shurui, create_at, create_hour): ##送信された
     mydb.db.close()
 
 def load_data(): ##データファイルを読み込んでリストを返す
-    
+
     mydb = MyDatabase("task_list.shelve")
     y = datetime.now() + timedelta(days=-1)
     yesterday = y.strftime("%Y%m%d") #昨日の日付を取得
@@ -86,15 +98,15 @@ def load_data(): ##データファイルを読み込んでリストを返す
             for n in range(1, 25):
                 if str(n) == str(mydb.db[str(i)]['create_hour']):
                     if mydb.db[str(i)]['shurui'] == 'jibun':
-                        tb+= "<td bgcolor='#c49a6a'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#c49a6a'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                     elif mydb.db[str(i)]['shurui'] == 'dareka':
-                        tb+= "<td bgcolor='#79c06e'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#79c06e'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                     elif mydb.db[str(i)]['shurui'] == 'zennin':
-                        tb+= "<td bgcolor='#4496d3'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#4496d3'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                     elif mydb.db[str(i)]['shurui'] == 'shakai':
-                        tb+= "<td bgcolor='#e95388'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#e95388'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                     else:
-                        tb+= "<td bgcolor='#afafb0'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#afafb0'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                 else:
                     tb+= "<td>&nbsp;</td>"
             tb+="</tr>"
@@ -105,15 +117,15 @@ def load_data(): ##データファイルを読み込んでリストを返す
             for n in range(1, 25):
                 if str(n) == str(mydb.db[str(i)]['create_hour']):
                     if mydb.db[str(i)]['shurui'] == 'jibun':
-                        tb+= "<td bgcolor='#c49a6a'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#c49a6a'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                     elif mydb.db[str(i)]['shurui'] == 'dareka':
-                        tb+= "<td bgcolor='#79c06e'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#79c06e'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                     elif mydb.db[str(i)]['shurui'] == 'zennin':
-                        tb+= "<td bgcolor='#4496d3'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#4496d3'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                     elif mydb.db[str(i)]['shurui'] == 'shakai':
-                        tb+= "<td bgcolor='#e95388'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#e95388'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                     else:
-                        tb+= "<td bgcolor='#afafb0'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#afafb0'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                 else:
                     tb+= "<td>&nbsp;</td>"
             tb+="</tr>"
@@ -124,15 +136,15 @@ def load_data(): ##データファイルを読み込んでリストを返す
             for n in range(1, 25):
                 if str(n) == str(mydb.db[str(i)]['create_hour']):
                     if mydb.db[str(i)]['shurui'] == 'jibun':
-                        tb+= "<td bgcolor='#c49a6a'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#c49a6a'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                     elif mydb.db[str(i)]['shurui'] == 'dareka':
-                        tb+= "<td bgcolor='#79c06e'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#79c06e'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                     elif mydb.db[str(i)]['shurui'] == 'zennin':
-                        tb+= "<td bgcolor='#4496d3'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#4496d3'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                     elif mydb.db[str(i)]['shurui'] == 'shakai':
-                        tb+= "<td bgcolor='#e95388'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#e95388'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                     else:
-                        tb+= "<td bgcolor='#afafb0'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#afafb0'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                 else:
                     tb+= "<td>&nbsp;</td>"
             tb+="</tr>"
@@ -143,15 +155,15 @@ def load_data(): ##データファイルを読み込んでリストを返す
             for n in range(1, 25):
                 if str(n) == str(mydb.db[str(i)]['create_hour']):
                     if mydb.db[str(i)]['shurui'] == 'jibun':
-                        tb+= "<td bgcolor='#c49a6a'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#c49a6a'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                     elif mydb.db[str(i)]['shurui'] == 'dareka':
-                        tb+= "<td bgcolor='#79c06e'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#79c06e'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                     elif mydb.db[str(i)]['shurui'] == 'zennin':
-                        tb+= "<td bgcolor='#4496d3'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#4496d3'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                     elif mydb.db[str(i)]['shurui'] == 'shakai':
-                        tb+= "<td bgcolor='#e95388'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#e95388'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                     else:
-                        tb+= "<td bgcolor='#afafb0'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#afafb0'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                 else:
                     tb+= "<td>&nbsp;</td>"
             tb+="</tr>"
@@ -189,7 +201,7 @@ def load_data_task():
     for i in list_keys:
         if mydb.db[str(i)]['shurui'] == 'jibun':
             tc+=u"<tr bgcolor='#c49a6a'><th>自分のため</th>"
-            tc+="<td>" + mydb.db[str(i)][u'title'] + "</td>"
+            tc+="<td>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
             for n in range(1, 25):
                 if str(n) == str(mydb.db[str(i)]['create_hour']):
                     if mydb.db[str(i)]['zokusei'] == 'otto':
@@ -207,7 +219,7 @@ def load_data_task():
     for i in list_keys:
         if mydb.db[str(i)]['shurui'] == 'dareka':
             tc+=u"<tr bgcolor='#79c06e'><th>家族の誰かのため</th>"
-            tc+="<td>" + mydb.db[str(i)][u'title'] + "</td>"
+            tc+="<td>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
             for n in range(1, 25):
                 if str(n) == str(mydb.db[str(i)]['create_hour']):
                     if mydb.db[str(i)]['zokusei'] == 'otto':
@@ -225,7 +237,7 @@ def load_data_task():
     for i in list_keys:
         if mydb.db[str(i)]['shurui'] == 'zennin':
             tc+= u"<tr bgcolor='#4496d3'><th>家族全員のため</th>"
-            tc+="<td>" + mydb.db[str(i)][u'title'] + "</td>"
+            tc+="<td>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
             for n in range(1, 25):
                 if str(n) == str(mydb.db[str(i)]['create_hour']):
                     if mydb.db[str(i)]['zokusei'] == 'otto':
@@ -243,7 +255,7 @@ def load_data_task():
     for i in list_keys:
         if mydb.db[str(i)]['shurui'] == 'shakai':
             tc+= u"<tr bgcolor='#e95388'><th>社会のため</th>"
-            tc+="<td>" + mydb.db[str(i)][u'title'] + "</td>"
+            tc+="<td>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
             for n in range(1, 25):
                 if str(n) == str(mydb.db[str(i)]['create_hour']):
                     if mydb.db[str(i)]['zokusei'] == 'otto':
@@ -279,15 +291,15 @@ def load_data_past(past): ##データファイルを読み込んでリストを�
             for n in range(1, 25):
                 if str(n) == str(mydb.db[str(i)]['create_hour']):
                     if mydb.db[str(i)]['shurui'] == 'jibun':
-                        tb+= "<td bgcolor='#c49a6a'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#c49a6a'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                     elif mydb.db[str(i)]['shurui'] == 'dareka':
-                        tb+= "<td bgcolor='#79c06e'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#79c06e'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                     elif mydb.db[str(i)]['shurui'] == 'zennin':
-                        tb+= "<td bgcolor='#4496d3'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#4496d3'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                     elif mydb.db[str(i)]['shurui'] == 'shakai':
-                        tb+= "<td bgcolor='#e95388'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#e95388'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                     else:
-                        tb+= "<td bgcolor='#afafb0'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#afafb0'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                 else:
                     tb+= "<td>&nbsp;</td>"
             tb+="</tr>"
@@ -298,15 +310,15 @@ def load_data_past(past): ##データファイルを読み込んでリストを�
             for n in range(1, 25):
                 if str(n) == str(mydb.db[str(i)]['create_hour']):
                     if mydb.db[str(i)]['shurui'] == 'jibun':
-                        tb+= "<td bgcolor='#c49a6a'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#c49a6a'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                     elif mydb.db[str(i)]['shurui'] == 'dareka':
-                        tb+= "<td bgcolor='#79c06e'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#79c06e'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                     elif mydb.db[str(i)]['shurui'] == 'zennin':
-                        tb+= "<td bgcolor='#4496d3'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#4496d3'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                     elif mydb.db[str(i)]['shurui'] == 'shakai':
-                        tb+= "<td bgcolor='#e95388'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#e95388'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                     else:
-                        tb+= "<td bgcolor='#afafb0'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#afafb0'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                 else:
                     tb+= "<td>&nbsp;</td>"
             tb+="</tr>"
@@ -317,15 +329,15 @@ def load_data_past(past): ##データファイルを読み込んでリストを�
             for n in range(1, 25):
                 if str(n) == str(mydb.db[str(i)]['create_hour']):
                     if mydb.db[str(i)]['shurui'] == 'jibun':
-                        tb+= "<td bgcolor='#c49a6a'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#c49a6a'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                     elif mydb.db[str(i)]['shurui'] == 'dareka':
-                        tb+= "<td bgcolor='#79c06e'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#79c06e'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                     elif mydb.db[str(i)]['shurui'] == 'zennin':
-                        tb+= "<td bgcolor='#4496d3'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#4496d3'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                     elif mydb.db[str(i)]['shurui'] == 'shakai':
-                        tb+= "<td bgcolor='#e95388'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#e95388'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                     else:
-                        tb+= "<td bgcolor='#afafb0'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#afafb0'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                 else:
                     tb+= "<td>&nbsp;</td>"
             tb+="</tr>"
@@ -336,15 +348,15 @@ def load_data_past(past): ##データファイルを読み込んでリストを�
             for n in range(1, 25):
                 if str(n) == str(mydb.db[str(i)]['create_hour']):
                     if mydb.db[str(i)]['shurui'] == 'jibun':
-                        tb+= "<td bgcolor='#c49a6a'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#c49a6a'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                     elif mydb.db[str(i)]['shurui'] == 'dareka':
-                        tb+= "<td bgcolor='#79c06e'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#79c06e'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                     elif mydb.db[str(i)]['shurui'] == 'zennin':
-                        tb+= "<td bgcolor='#4496d3'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#4496d3'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                     elif mydb.db[str(i)]['shurui'] == 'shakai':
-                        tb+= "<td bgcolor='#e95388'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#e95388'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                     else:
-                        tb+= "<td bgcolor='#afafb0'>" + mydb.db[str(i)][u'title'] + "</td>"
+                        tb+= "<td bgcolor='#afafb0'>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
                 else:
                     tb+= "<td>&nbsp;</td>"
             tb+="</tr>"
@@ -367,7 +379,7 @@ def load_data_task_past(past):
     for i in list_keys:
         if mydb.db[str(i)]['shurui'] == 'jibun':
             tc+=u"<tr bgcolor='#c49a6a'><th>自分のため</th>"
-            tc+="<td>" + mydb.db[str(i)][u'title'] + "</td>"
+            tc+="<td>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
             for n in range(1, 25):
                 if str(n) == str(mydb.db[str(i)]['create_hour']):
                     if mydb.db[str(i)]['zokusei'] == 'otto':
@@ -385,7 +397,7 @@ def load_data_task_past(past):
     for i in list_keys:
         if mydb.db[str(i)]['shurui'] == 'dareka':
             tc+=u"<tr bgcolor='#79c06e'><th>家族の誰かのため</th>"
-            tc+="<td>" + mydb.db[str(i)][u'title'] + "</td>"
+            tc+="<td>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
             for n in range(1, 25):
                 if str(n) == str(mydb.db[str(i)]['create_hour']):
                     if mydb.db[str(i)]['zokusei'] == 'otto':
@@ -403,7 +415,7 @@ def load_data_task_past(past):
     for i in list_keys:
         if mydb.db[str(i)]['shurui'] == 'zennin':
             tc+= u"<tr bgcolor='#4496d3'><th>家族全員のため</th>"
-            tc+="<td>" + mydb.db[str(i)][u'title'] + "</td>"
+            tc+="<td>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
             for n in range(1, 25):
                 if str(n) == str(mydb.db[str(i)]['create_hour']):
                     if mydb.db[str(i)]['zokusei'] == 'otto':
@@ -421,7 +433,7 @@ def load_data_task_past(past):
     for i in list_keys:
         if mydb.db[str(i)]['shurui'] == 'shakai':
             tc+= u"<tr bgcolor='#e95388'><th>社会のため</th>"
-            tc+="<td>" + mydb.db[str(i)][u'title'] + "</td>"
+            tc+="<td>" + "(" + str(i) + ")" + mydb.db[str(i)][u'title'] + "</td>"
             for n in range(1, 25):
                 if str(n) == str(mydb.db[str(i)]['create_hour']):
                     if mydb.db[str(i)]['zokusei'] == 'otto':
@@ -536,7 +548,7 @@ def del_poko_past(how_past, dore):
     p = datetime.now() - timedelta(days=how_past )
     past = p.strftime("%Y%m%d")
     del_data_past(past,kore)
-    return redirect('/all/' + how_past)
+    return redirect('/all/' + str(how_past))
 
 @application.route('/today') ##リストを読んでレンダリングする
 def index():
